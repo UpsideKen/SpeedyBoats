@@ -192,22 +192,28 @@ public class SpeedyBoats extends JavaPlugin implements Listener {
             return;
         }
         Entity passenger = event.getVehicle().getPassengers().get(0);
-
+    
         if (vehicle instanceof Boat boat && passenger instanceof Player player) {
             if (player.getInventory().getItemInMainHand().getItemMeta() == null) {
                 return;
             }
             Material itemType = player.getInventory().getItemInMainHand().getType();
             String itemName = player.getInventory().getItemInMainHand().getItemMeta().getDisplayName();
-
+    
             if (itemType == Material.SUGAR && itemName.equals(ChatColor.RED + "Engine Level 1")){
-                boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL1")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL1")).getZ()));
+                if (boat.getLocation().getBlock().getType() == Material.WATER) {
+                    boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL1")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL1")).getZ()));
+                }
             }
             if (itemType == Material.REDSTONE && itemName.equals(ChatColor.RED + "Engine Level 2")){
-                boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL2")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL2")).getZ()));
+                if (boat.getLocation().getBlock().getType() == Material.WATER) {
+                    boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL2")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL2")).getZ()));
+                }
             }
             if (itemType == Material.POPPED_CHORUS_FRUIT && itemName.equals(ChatColor.RED + "Engine Level 3")){
-                boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL3")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL3")).getZ()));
+                if (boat.getLocation().getBlock().getType() == Material.WATER) {
+                    boat.setVelocity(new Vector(boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL3")).getX(), 0.0, boat.getLocation().getDirection().multiply(config.getDouble("multiplierLVL3")).getZ()));
+                }
             }
         }
     }
